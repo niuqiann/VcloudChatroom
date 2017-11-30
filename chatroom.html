@@ -9,7 +9,14 @@
 </head>
 <body>
 	<div class="main">
-		<div class="messageBox"></div>
+		<div class="msgBox">
+			<ul id="msgList">
+				<li>
+					<span>1:<span>
+					<span>1123123<span>
+				</li>
+			</ul>
+		</div>
 		<div>
 		   <input type="text" id="msg" autocomplete="off" class="layui-input float-left" style=" width: 303px">
 		   <button class="layui-btn float-left" onclick="sendMsg()">发送</button>
@@ -22,13 +29,21 @@
 <script src="js/nim/NIM_Web_Chatroom_v4.5.0.js"></script>
 <script type="text/javascript">
 
-	//TODO 从服务器获取appkey、account、token、chatroomId
+	//TODO 从服务器获取appkey、account、token、chatroomId、chatroomNick
+	var appKey = '0b4ad5bf42cf98254940d326bfa5aa0e';
+	var account = 'hr_8047914';
+	var token = '6eb33f755d4464000edbd03f1ea6a87e';
+	var chatroomId = '19467995';
+	var chatroomNick = '超级管理员';
+	var debug = true；
+
+	
 	//1.创建nim实例
 	var nim = NIM.getInstance({
-		debug:true,
-		appKey: '0b4ad5bf42cf98254940d326bfa5aa0e',
-		account: 'hr_8047914',
-		token: '6eb33f755d4464000edbd03f1ea6a87e',
+		debug: debug,
+		appKey: appKey,
+		account: account,
+		token: token,
 		onconnect: onConnect,
 	});
 	
@@ -37,7 +52,7 @@
 	function onConnect(){
 		//2.链接服务器成功后，再获取聊天室地址
 		nim.getChatroomAddress({
-			chatroomId: '19431861',
+			chatroomId: chatroomId,
 			done: getChatroomAddressDone
 		});
 	}
@@ -52,12 +67,13 @@
 
 	function initChatroom(address){
 		chatroom = Chatroom.getInstance({
-			debug:true,
-			appKey: '0b4ad5bf42cf98254940d326bfa5aa0e',
-			account: 'hr_8047914',
-			token: '6eb33f755d4464000edbd03f1ea6a87e',
-			chatroomId: '19431861',
+			debug: debug,
+			appKey: appKey,
+			account: account,
+			token: token,
+			chatroomId: chatroomId,
 			chatroomAddresses: address,
+			chatroomNick:chatroomNick,
 			onconnect: onChatroomConnect,
 			onerror: onChatroomError,
 			onwillreconnect: onChatroomWillReconnect,
@@ -70,7 +86,25 @@
 	
 	function onChatroomConnect(chatroom) {
 		console.log('进入聊天室', chatroom);
+		//查询历史信息
+		chatroom.getHistoryMsgs({
+		    limit: 100,
+		    done: getHistoryMsgsDone
+		});
 	}
+
+	function getHistoryMsgsDone(error, obj) {
+	    //nsole.log('获取聊天室历史' + (!error?'成功':'失败'), error, obj.msgs);
+	    if(!error){
+	    	var html = "";
+	    	for (var i = obj.msgs.length - 1 ; i > 0; i++) {
+	    		var msg = obj.msgs[i];
+	    		html += "<li><span>"+msg.fromNick+": </span><span>"+msg.text+"</span></li>";
+	    	}
+	    	$("msgList").append(html);
+	    }
+	}
+
 	function onChatroomWillReconnect(obj) {
 		// 此时说明 `SDK` 已经断开连接, 请开发者在界面上提示用户连接已断开, 而且正在重新建立连接
 		console.log('即将重连', obj);
@@ -102,6 +136,13 @@
 	//发送消息
 	function sendMsg(){
 		var msg = $("#msg").val();
+		if(msg = ""){
+			layer.open({
+			  title: '提示'
+			  ,content: '消息内容不能为空'
+			});   
+			return;
+		}
 		chatroom.sendText({
 		    text: msg,
 		    done: sendChatroomMsgDone
