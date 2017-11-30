@@ -9,19 +9,20 @@
 </head>
 <body>
 	<div class="main">
+		<h2 style="text-align: center;">聊天室Demo</h2>
 		<div class="msgBox">
 			<ul id="msgList">
 				
 			</ul>
 		</div>
 		<div>
-		   <input type="text" id="msg" autocomplete="off" class="layui-input float-left" style=" width: 303px">
+		   <input type="text" id="msg" autocomplete="off" class="layui-input float-left" style=" width: 336px">
 		   <button class="layui-btn float-left" onclick="sendMsg()">发送</button>
 		</div>
 	</div>
 </body>
 <script src="http://libs.baidu.com/jquery/1.8.0/jquery.min.js"></script>
-<script src="layui/layui.js"></script>
+<script src="layui/layer.js"></script>
 <script src="js/nim/NIM_Web_NIM_v4.5.0.js"></script>
 <script src="js/nim/NIM_Web_Chatroom_v4.5.0.js"></script>
 <script type="text/javascript">
@@ -90,17 +91,10 @@
 		});
 	}
 
-	function getHistoryMsgsDone(error, obj) {
+	function getHistoryMsgsDone(error, obj) {c
 	    //nsole.log('获取聊天室历史' + (!error?'成功':'失败'), error, obj.msgs);
 	    if(!error){
-	    	var html = "";
-	    	for (var i = obj.msgs.length - 1 ; i > 0; i--) {
-	    		var msg = obj.msgs[i];
-	    		if(msg.type == "text"){
-					html += "<li><span>"+msg.fromNick+": </span><span>"+msg.text+"</span></li>";
-	    		}    		
-	    	}
-	    	$("msgList").append(html);
+	    	updateMsgList(obj.msgs);
 	    }
 	}
 
@@ -129,6 +123,7 @@
 	}
 	function onChatroomMsgs(msgs) {
 		console.log('收到聊天室消息', msgs);
+		updateMsgList(msgs);
 	}
 
 
@@ -152,7 +147,19 @@
 		console.log('发送聊天室' + msg.type + '消息' + (!error?'成功':'失败') + ', id=' + msg.idClient, error, msg);
 		if(!error){
 			$("#msg").val("");
+			updateMsgList(new Array(msg));
 		}
+	}
+
+	function updateMsgList(msgs){
+		var html = "";
+    	for (var i = msgs.length - 1 ; i > 0; i--) {
+    		var msg = msgs[i];
+    		if(msg.type == "text"){
+				html += "<li><span>"+msg.fromNick+": </span><span>"+msg.text+"</span></li>";
+    		}    		
+    	}
+    	$("msgList").append(html);
 	}
 
 </script>
