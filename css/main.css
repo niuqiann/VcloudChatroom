@@ -1,0 +1,16 @@
+.main{
+	width: 500px;
+	margin:0 auto
+}
+
+.messageBox{
+	width:365px;
+	height:300px;
+	margin:10px 0px;  
+	overflow:auto;
+	border: 1px solid #eee
+}
+
+.float-left{
+	float: left;
+}
