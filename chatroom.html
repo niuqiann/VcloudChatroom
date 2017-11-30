@@ -153,7 +153,7 @@
 
 	function updateMsgList(msgs){
 		var html = "";
-    	for (var i = msgs.length - 1 ; i > 0; i--) {
+    	for (var i = msgs.length - 1 ; i >= 0; i--) {
     		var msg = msgs[i];
     		if(msg.type == "text"){
 				html += "<li><span>"+msg.fromNick+": </span><span>"+msg.text+"</span></li>";
