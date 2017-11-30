@@ -81,8 +81,8 @@
 	}
 	
 	
-	function onChatroomConnect(chatroom) {
-		console.log('进入聊天室', chatroom);
+	function onChatroomConnect(chatroomInfo) {
+		console.log('进入聊天室', chatroomInfo);
 		//查询历史信息
 		chatroom.getHistoryMsgs({
 		    limit: 100,
@@ -133,10 +133,10 @@
 	//发送消息
 	function sendMsg(){
 		var msg = $("#msg").val();
-		if(msg = ""){
+		if(msg == ""){
 			layer.open({
-			  title: '提示'
-			  ,content: '消息内容不能为空'
+			  title: '提示',
+			  content: '消息内容不能为空'
 			});   
 			return;
 		}
