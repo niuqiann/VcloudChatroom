@@ -30,7 +30,7 @@
 	var appKey = '0b4ad5bf42cf98254940d326bfa5aa0e';
 	var account = 'hr_8047914';
 	var token = '6eb33f755d4464000edbd03f1ea6a87e';
-	var chatroomId = '19431861';
+	var chatroomId = '19467995';
 	var chatroomNick = '超级管理员';
 	var debug = true;
 
@@ -96,7 +96,7 @@
 	    	var html = "";
 	    	for (var i = obj.msgs.length - 1 ; i > 0; i++) {
 	    		var msg = obj.msgs[i];
-	    		if(msg.type = "0"){
+	    		if(msg.type == "0"){
 					html += "<li><span>"+msg.fromNick+": </span><span>"+msg.text+"</span></li>";
 	    		}    		
 	    	}
