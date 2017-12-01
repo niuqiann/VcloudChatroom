@@ -8,9 +8,10 @@
     margin: 100px 0px 0px 170px
 }
 
-.msgBox{
+#msglist{
 	height:300px;
 	margin:10px 0px;  
+	overflow:auto;
 	border: 1px solid #eee
 }
 
