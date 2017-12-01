@@ -11,8 +11,8 @@
 	<div class="main">
 		<h2 style="text-align: center;">聊天室Demo</h2>
 		<div class="msgBox">
-			<i class="layui-icon layui-anim layui-anim-rotate layui-anim-loop loading">&#xe63d;</i>
-			<ul id="msglist" display="none">
+			<i class="layui-icon layui-anim layui-anim-rotate layui-anim-loop loading"></i>
+			<ul id="msglist">
 				
 			</ul>
 		</div>
@@ -103,7 +103,6 @@
 	    //获取历史消息包含提示消息和通知消息（进入聊天室等）需要将其他信息过滤
 	    if(!error){
 	    	$(".loading").hide();
-	    	$("#msglist").show();
 	    	updateMsgList(obj.msgs);
 	    }
 	}
