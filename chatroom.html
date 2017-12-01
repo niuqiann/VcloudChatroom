@@ -10,8 +10,9 @@
 <body>
 	<div class="main">
 		<h2 style="text-align: center;">聊天室Demo</h2>
-		<div>
-			<ul id="msgBox" class="msgBox">
+		<div class="msgBox">
+			<i class="layui-icon layui-anim layui-anim-rotate layui-anim-loop loading">&#xe63d;</i>
+			<ul id="msglist" display="none">
 				
 			</ul>
 		</div>
@@ -101,6 +102,8 @@
 	function getHistoryMsgsDone(error, obj) {
 	    //获取历史消息包含提示消息和通知消息（进入聊天室等）需要将其他信息过滤
 	    if(!error){
+	    	$(".loading").hide();
+	    	$("#msglist").show();
 	    	updateMsgList(obj.msgs);
 	    }
 	}
@@ -167,8 +170,8 @@
 				html += "<li><span>"+msg.fromNick+": </span><span>"+msg.text+"</span></li>";
     		}    		
     	}
-    	$("#msgBox").append(html);
-    	$('#msgBox').scrollTop($('#msgBox')[0].scrollHeight);
+    	$("#msglist").append(html);
+    	$('#msglist').scrollTop($('#msglist')[0].scrollHeight);
 	}
 
 </script>
