@@ -172,10 +172,10 @@
     	$('#msglist').scrollTop($('#msglist')[0].scrollHeight);
 	}
 	
-	function jinyan(account){
+	function jinyan(account,flag){
 		chatroom.markChatroomGaglist({
 		    account: account,
-		    isAdd: true,
+		    isAdd: flag,
 		    done: markChatroomGaglistDone
 		});
 	}
