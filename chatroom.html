@@ -171,6 +171,19 @@
     	$("#msglist").append(html);
     	$('#msglist').scrollTop($('#msglist')[0].scrollHeight);
 	}
+	
+	function jinyan(account){
+		chatroom.markChatroomGaglist({
+		    account: account,
+		    isAdd: true,
+		    done: markChatroomGaglistDone
+		});
+	}
+	
+	
+	function markChatroomGaglistDone(error, obj) {
+	    console.log('添加聊天室禁言名单' + (!error?'成功':'失败'), error, obj.member);
+	}
 
 </script>
 </html>
